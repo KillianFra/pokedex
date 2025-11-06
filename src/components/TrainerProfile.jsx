@@ -26,14 +26,30 @@ const initialTrainer = {
   ]
 };
 
-const TrainerProfile = () => {
+const TrainerProfile = ({ currentUser }) => {
   const [trainer, setTrainer] = useState(initialTrainer);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState({ name: trainer.name, bio: trainer.bio });
   const [adding, setAdding] = useState(false);
 
+  const startEdit = () => {
+    setDraft({ name: currentUser?.name || trainer.name, bio: trainer.bio });
+    setEditing(true);
+  }
+
   const saveProfile = () => {
     setTrainer(prev => ({ ...prev, name: draft.name, bio: draft.bio }));
+    // persist name change to localStorage so reload keeps the updated display name
+    try {
+      const raw = localStorage.getItem('pokedex_user')
+      if (raw) {
+        const u = JSON.parse(raw)
+        const updated = { ...u, name: draft.name }
+        localStorage.setItem('pokedex_user', JSON.stringify(updated))
+      }
+    } catch (e) {
+      // ignore
+    }
     setEditing(false);
   };
 
@@ -65,10 +81,11 @@ const TrainerProfile = () => {
         <div className="trainer-info">
           {!editing ? (
             <>
-              <h2 className="trainer-name">{trainer.name}</h2>
+              <h2 className="trainer-name">{currentUser?.name || trainer.name}</h2>
+              <div className="trainer-role" style={{ color: '#9ca3af', marginBottom: 8 }}>Rôle: <strong>{currentUser?.role || 'Visiteur'}</strong></div>
               <p className="trainer-bio">{trainer.bio}</p>
               <div className="trainer-actions">
-                <button onClick={() => setEditing(true)} className="btn">Modifier profil</button>
+                <button onClick={startEdit} className="btn">Modifier profil</button>
               </div>
             </>
           ) : (
@@ -91,8 +108,8 @@ const TrainerProfile = () => {
       </div>
 
       <section className="team-section">
-        <h3 style={{ color: '#fff' }}>Mon équipe</h3>
-        <p style={{ color: '#9ca3af' }}>Gérez votre équipe (max 6 Pokémon).</p>
+        <h3 style={{ color: '#fff' }}>{currentUser?.role === 'Soignant' ? 'Mon centre' : 'Mon équipe'}</h3>
+        <p style={{ color: '#9ca3af' }}>Gérez votre {currentUser?.role === 'Soignant' ? 'centre' : 'équipe'} (max 6 Pokémon).</p>
 
         <div className="team-grid">
           {Array.from({ length: 6 }).map((_, idx) => {
@@ -114,8 +131,8 @@ const TrainerProfile = () => {
         </div>
 
         <div className="team-controls">
-          <button onClick={() => setAdding(a => !a)} className="btn">{adding ? 'Fermer' : 'Ajouter un Pokémon'}</button>
-          <span className="team-count">{trainer.team.length}/6</span>
+            <button onClick={() => setAdding(a => !a)} className="btn">{adding ? 'Fermer' : 'Ajouter un Pokémon'}</button>
+            <span className="team-count">{trainer.team.length}/6</span>
         </div>
 
         {adding && (

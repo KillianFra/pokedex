@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PokemonCard from './PokemonCard';
 import PokemonDetail from './PokemonDetail';
+import Navbar from './Navbar';
 import './Pokedex.css';
 
 const Pokedex = () => {
@@ -91,19 +92,7 @@ const Pokedex = () => {
   if (loading) {
     return (
       <div className="pokedex-container">
-        <div className="pokedex-header">
-          <img 
-            src="/pokemon-logo.png" 
-            alt="Pokémon" 
-            className="pokemon-logo"
-            onError={(e) => {
-              e.target.style.display = 'none';
-              e.target.nextElementSibling.style.display = 'block';
-            }}
-          />
-          <h1 className="backup-title">Pokémon</h1>
-          <h2 className="pokedex-subtitle">Pokedex</h2>
-        </div>
+        <Navbar />
         <div className="loading-container">
           <div className="pokeball-loader">
             <div className="pokeball">
@@ -121,19 +110,7 @@ const Pokedex = () => {
   if (error) {
     return (
       <div className="pokedex-container">
-        <div className="pokedex-header">
-          <img 
-            src="/pokemon-logo.png" 
-            alt="Pokémon" 
-            className="pokemon-logo"
-            onError={(e) => {
-              e.target.style.display = 'none';
-              e.target.nextElementSibling.style.display = 'block';
-            }}
-          />
-          <h1 className="backup-title">Pokémon</h1>
-          <h2 className="pokedex-subtitle">Pokedex</h2>
-        </div>
+        <Navbar />
         <div className="error-container">
           <p className="error-message">{error}</p>
           <button 
@@ -149,19 +126,7 @@ const Pokedex = () => {
 
   return (
     <div className="pokedex-container">
-      <div className="pokedex-header">
-        <img 
-          src="/pokemon-logo.png" 
-          alt="Pokémon" 
-          className="pokemon-logo"
-          onError={(e) => {
-            e.target.style.display = 'none';
-            e.target.nextElementSibling.style.display = 'block';
-          }}
-        />
-        <h1 className="backup-title">Pokémon</h1>
-        <h2 className="pokedex-subtitle"></h2>
-      </div>
+      <Navbar />
       
       <div className="search-filter-container">
         <div className="search-bar">

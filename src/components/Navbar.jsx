@@ -29,7 +29,7 @@ const Navbar = ({ navigate, currentUser, onLogout }) => {
         
         <div className="navbar-menu">
           <a href="/" className="navbar-btn" onClick={(e) => go(e, '/')}>Accueil</a>
-          {currentUser &&<a href="/collection" className="navbar-btn" onClick={(e) => go(e, '/collection')}>Collection</a>}
+          {currentUser && currentUser?.role == "Dresseur" && <a href="/collection" className="navbar-btn" onClick={(e) => go(e, '/collection')}>Collection</a>}
           {currentUser && <a href="/pokedex" className="navbar-btn" onClick={(e) => go(e, '/pokedex')}>Mon profil</a>}
           <div className="navbar-item">
             <span className="navbar-generation">Génération I</span>

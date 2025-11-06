@@ -28,8 +28,9 @@ const Navbar = ({ navigate }) => {
         </div>
         
         <div className="navbar-menu">
-          <a href="/" className="navbar-btn" onClick={(e) => go(e, '/')}>Accueil</a>
-          <a href="/pokedex" className="navbar-btn" onClick={(e) => go(e, '/pokedex')}>Mon profil</a>
+                <a href="/" className="navbar-btn" onClick={(e) => go(e, '/')}>Accueil</a>
+                <a href="/collection" className="navbar-btn" onClick={(e) => go(e, '/collection')}>Collection</a>
+                <a href="/pokedex" className="navbar-btn" onClick={(e) => go(e, '/pokedex')}>Mon profil</a>
           <div className="navbar-item">
             <span className="navbar-generation">Génération I</span>
           </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Pokedex from './components/Pokedex'
 import Navbar from './components/Navbar'
 import TrainerProfile from './components/TrainerProfile'
+import Collection from './components/Collection'
 import './App.css'
 
 function App() {
@@ -22,9 +23,10 @@ function App() {
   return (
     <div className="App">
       {/* Navbar receives navigate so links are SPA-like */}
-      {path === '/pokedex' && <Navbar navigate={navigate} />}
+      {path !== '/' && <Navbar navigate={navigate} />}
 
       {path === '/' && <Pokedex />}
+      {path === '/collection' && <Collection />}
       {path === '/pokedex' && <TrainerProfile />}
     </div>
   )

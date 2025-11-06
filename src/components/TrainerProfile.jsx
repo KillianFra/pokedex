@@ -1,28 +1,15 @@
 import React, { useState } from 'react';
 import './TrainerProfile.css';
 
-const SAMPLE_POKEMON = [
-  { id: 1, name: 'Bulbizarre', name_en: 'Bulbasaur', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png' },
-  { id: 4, name: 'Salamèche', name_en: 'Charmander', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png' },
-  { id: 7, name: 'Carapuce', name_en: 'Squirtle', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png' },
-  { id: 25, name: 'Pikachu', name_en: 'Pikachu', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png' },
-  { id: 39, name: 'Sabelette', name_en: 'Jigglypuff', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png' },
-  { id: 52, name: 'Miaouss', name_en: 'Meowth', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png' },
-  { id: 133, name: 'Évoli', name_en: 'Eevee', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png' },
-  { id: 150, name: 'Mewtwo', name_en: 'Mewtwo', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png' },
-  { id: 37, name: 'Rattata', name_en: 'Rattata', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png' },
-  { id: 95, name: 'Onix', name_en: 'Onix', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png' },
-  { id: 143, name: 'Élektrode', name_en: 'Snorlax', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png' },
-  { id: 149, name: 'Dracolosse', name_en: 'Dragonite', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png' }
-];
+import { SAMPLE_POKEMON } from '../data/samplePokemon';
 
 const initialTrainer = {
   name: 'Sacha',
   bio: "Dresseur passionné — Toujours prêt pour un combat !",
   photo: '/trainer-avatar.png',
   team: [
-    { id: 25, name: 'Bulbizarre', sprite: SAMPLE_POKEMON[0].sprite },
-    { id: 1, name: 'Salamèche', sprite: SAMPLE_POKEMON[1].sprite }
+    { id: SAMPLE_POKEMON[0].id, name: SAMPLE_POKEMON[0].name, sprite: SAMPLE_POKEMON[0].sprite },
+    { id: SAMPLE_POKEMON[3].id, name: SAMPLE_POKEMON[3].name, sprite: SAMPLE_POKEMON[3].sprite }
   ]
 };
 
@@ -119,7 +106,17 @@ const TrainerProfile = ({ currentUser }) => {
                 {p ? (
                   <>
                     <img src={p.sprite} alt={p.name} />
-                    <div className="slot-name">{p.name}</div>
+                          <div className="slot-name">{(function(){
+                            try {
+                              const raw = localStorage.getItem('pokedex_collection_v1');
+                              if (raw) {
+                                const saved = JSON.parse(raw);
+                                const s = saved.find(x => x.id === p.id);
+                                if (s && s.nickname) return s.nickname;
+                              }
+                            } catch (e) {}
+                            return p.name;
+                          })()}</div>
                     <button className="remove-btn" onClick={() => removeFromTeam(idx)}>Retirer</button>
                   </>
                 ) : (

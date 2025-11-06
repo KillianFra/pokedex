@@ -58,14 +58,27 @@ const PokemonCard = ({ pokemon, onCardClick }) => {
 
   // Prefer French name when available; otherwise try to fetch it lazily from PokeAPI species
   const [frenchName, setFrenchName] = useState(null);
+  const [localNickname, setLocalNickname] = useState(null);
+
+  const STORAGE_KEY = 'pokedex_collection_v1';
 
   const getDisplayName = (p) => {
     if (!p) return '';
-    return (p.name_fr || p.nom || (p.names && (p.names.fr || p.names['fr'])) || frenchName || p.name || '').toString();
+    return (localNickname || p.name_fr || p.nom || (p.names && (p.names.fr || p.names['fr'])) || frenchName || p.name || '').toString();
   };
 
   useEffect(() => {
     let mounted = true;
+    // load local nickname if present
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        const me = saved.find(x => x.id === pokemon?.pokedexId);
+        if (me && mounted) setLocalNickname(me.nickname || null);
+      }
+    } catch (e) { /* ignore */ }
+
     const hasFrench = pokemon?.name_fr || pokemon?.nom || (pokemon.names && (pokemon.names.fr || pokemon.names['fr']));
     if (!hasFrench && pokemon?.pokedexId) {
       // fetch species to get localized names (fr)

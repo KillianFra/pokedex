@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Pokedex from './components/Pokedex'
 import Navbar from './components/Navbar'
 import TrainerProfile from './components/TrainerProfile'
+import Collection from './components/Collection'
 import Login from './components/Login'
 import './App.css'
 
@@ -62,7 +63,7 @@ function App() {
     <div className="App">
       {/* Navbar receives navigate so links are SPA-like; render on all pages so auth state is visible everywhere */}
       <Navbar navigate={navigate} currentUser={user} onLogout={logout} />
-
+      {path === '/collection' && <Collection />}
       {path === '/' && <Pokedex />}
       {path === '/login' && <Login onLogin={login} navigate={navigate} />}
       {path === '/pokedex' && <TrainerProfile currentUser={user} />}

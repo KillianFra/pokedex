@@ -230,7 +230,7 @@ const PokemonDetail = ({ pokemonId, onBack, onPokemonSelect }) => {
       <div className="pokemon-detail-content">
         <div className="pokemon-header">
           <div className="pokemon-id">{formatId(pokemon.pokedexId)}</div>
-          <h1 className="pokemon-title">{pokemon.name}</h1>
+          <h1 className="pokemon-title">{pokemon.name_fr || pokemon.nom || pokemon.name || (pokemon.names && (pokemon.names.fr || pokemon.names['fr']))}</h1>
           
           <div className="pokemon-types-detail">
             {pokemon.apiTypes?.map((type, index) => (

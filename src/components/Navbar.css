@@ -70,8 +70,8 @@
 .navbar-generation {
   font-size: 1rem;
   font-weight: 600;
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.01);
   padding: 8px 16px;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -96,6 +96,18 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: #ffcb05;
+}
+
+.navbar-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+  transition: background 0.3s, border-color 0.3s;
 }
 
 /* Responsive design */

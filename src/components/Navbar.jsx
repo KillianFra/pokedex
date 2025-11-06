@@ -1,7 +1,13 @@
 import React from 'react';
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ navigate }) => {
+  const go = (e, to) => {
+    e.preventDefault()
+    if (navigate) navigate(to)
+    else window.location.href = to
+  }
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -22,6 +28,8 @@ const Navbar = () => {
         </div>
         
         <div className="navbar-menu">
+          <a href="/" className="navbar-btn" onClick={(e) => go(e, '/')}>Accueil</a>
+          <a href="/pokedex" className="navbar-btn" onClick={(e) => go(e, '/pokedex')}>Mon profil</a>
           <div className="navbar-item">
             <span className="navbar-generation">Génération I</span>
           </div>

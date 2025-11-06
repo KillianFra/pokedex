@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PokemonCard.css';
 
 const PokemonCard = ({ pokemon, onCardClick }) => {
@@ -56,6 +56,32 @@ const PokemonCard = ({ pokemon, onCardClick }) => {
   const primaryType = pokemon.apiTypes?.[0]?.name || 'Normal';
   const primaryColor = getTypeColor(primaryType);
 
+  // Prefer French name when available; otherwise try to fetch it lazily from PokeAPI species
+  const [frenchName, setFrenchName] = useState(null);
+
+  const getDisplayName = (p) => {
+    if (!p) return '';
+    return (p.name_fr || p.nom || (p.names && (p.names.fr || p.names['fr'])) || frenchName || p.name || '').toString();
+  };
+
+  useEffect(() => {
+    let mounted = true;
+    const hasFrench = pokemon?.name_fr || pokemon?.nom || (pokemon.names && (pokemon.names.fr || pokemon.names['fr']));
+    if (!hasFrench && pokemon?.pokedexId) {
+      // fetch species to get localized names (fr)
+      const id = pokemon.pokedexId;
+      fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (!mounted || !data) return;
+          const fr = data.names?.find(n => n.language?.name === 'fr');
+          if (fr && fr.name) setFrenchName(fr.name);
+        })
+        .catch(() => {/* ignore fetch errors */});
+    }
+    return () => { mounted = false };
+  }, [pokemon]);
+
   return (
     <div 
       className="pokemon-card" 
@@ -73,7 +99,7 @@ const PokemonCard = ({ pokemon, onCardClick }) => {
         </div>
         
         <div className="pokemon-info-bottom">
-          <h3 className="pokemon-name">{pokemon.name}</h3>
+          <h3 className="pokemon-name">{getDisplayName(pokemon)}</h3>
           
           <div className="pokemon-types">
             {pokemon.apiTypes?.map((type, index) => (

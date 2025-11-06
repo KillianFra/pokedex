@@ -98,7 +98,6 @@ const Pokedex = () => {
   if (loading) {
     return (
       <div className="pokedex-container">
-        <Navbar />
         <div className="loading-container">
           <div className="pokeball-loader">
             <div className="pokeball">
@@ -116,7 +115,6 @@ const Pokedex = () => {
   if (error) {
     return (
       <div className="pokedex-container">
-        <Navbar />
         <div className="error-container">
           <p className="error-message">{error}</p>
           <button 
@@ -132,8 +130,6 @@ const Pokedex = () => {
 
   return (
     <div className="pokedex-container">
-      <Navbar />
-      
       <div className="search-filter-container">
         <div className="search-bar">
           <input

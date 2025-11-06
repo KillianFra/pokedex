@@ -1,9 +1,9 @@
 import React from 'react';
 import './Navbar.css';
 
-const Navbar = ({ navigate }) => {
+const Navbar = ({ navigate, currentUser, onLogout }) => {
   const go = (e, to) => {
-    e.preventDefault()
+    if (e) e.preventDefault()
     if (navigate) navigate(to)
     else window.location.href = to
   }
@@ -28,17 +28,28 @@ const Navbar = ({ navigate }) => {
         </div>
         
         <div className="navbar-menu">
-                <a href="/" className="navbar-btn" onClick={(e) => go(e, '/')}>Accueil</a>
-                <a href="/collection" className="navbar-btn" onClick={(e) => go(e, '/collection')}>Collection</a>
-                <a href="/pokedex" className="navbar-btn" onClick={(e) => go(e, '/pokedex')}>Mon profil</a>
+          <a href="/" className="navbar-btn" onClick={(e) => go(e, '/')}>Accueil</a>
+          {currentUser &&<a href="/collection" className="navbar-btn" onClick={(e) => go(e, '/collection')}>Collection</a>}
+          {currentUser && <a href="/pokedex" className="navbar-btn" onClick={(e) => go(e, '/pokedex')}>Mon profil</a>}
           <div className="navbar-item">
             <span className="navbar-generation">Génération I</span>
           </div>
+
           <div className="navbar-item">
             <div className="navbar-stats">
               <span className="stats-label">Kanto</span>
               <span className="stats-count">151 Pokémon</span>
             </div>
+          </div>
+
+          <div className="navbar-auth">
+            {currentUser ? (
+              <div className="auth-info">
+                <button className="navbar-btn logout" onClick={(e) => { e.preventDefault(); onLogout && onLogout(); }}>Déconnexion</button>
+              </div>
+            ) : (
+              <a href="/login" className="navbar-btn" onClick={(e) => go(e, '/login')}>Se connecter</a>
+            )}
           </div>
         </div>
       </div>

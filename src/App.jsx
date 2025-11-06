@@ -1,11 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Pokedex from './components/Pokedex'
+import Navbar from './components/Navbar'
+import TrainerProfile from './components/TrainerProfile'
 import './App.css'
 
 function App() {
+  const [path, setPath] = useState(window.location.pathname || '/')
+
+  useEffect(() => {
+    const onPop = () => setPath(window.location.pathname)
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
+
+  const navigate = (to) => {
+    if (to === path) return
+    window.history.pushState({}, '', to)
+    setPath(to)
+  }
+
   return (
     <div className="App">
-      <Pokedex />
+      {/* Navbar receives navigate so links are SPA-like */}
+      {path === '/pokedex' && <Navbar navigate={navigate} />}
+
+      {path === '/' && <Pokedex />}
+      {path === '/pokedex' && <TrainerProfile />}
     </div>
   )
 }

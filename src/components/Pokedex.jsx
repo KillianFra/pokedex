@@ -57,9 +57,15 @@ const Pokedex = () => {
   };
 
   // Filter pokemon based on search and filters
+  const getDisplayName = (p) => {
+    if (!p) return '';
+    return (p.name_fr || p.nom || (p.names && (p.names.fr || p.names['fr'])) || p.name || '').toString();
+  };
+
+  // Filter pokemon based on search and filters
   const filteredPokemon = pokemon.filter(poke => {
-    // Name search filter
-    const matchesName = poke.name.toLowerCase().includes(searchTerm.toLowerCase());
+    // Name search filter (search in French name when available)
+    const matchesName = getDisplayName(poke).toLowerCase().includes(searchTerm.toLowerCase());
     
     // Type filter
     const matchesType = !selectedType || 

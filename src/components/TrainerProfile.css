@@ -1,0 +1,107 @@
+.trainer-container {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 16px;
+}
+
+.trainer-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background: rgba(255,255,255,0.03);
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.trainer-photo img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
+
+.trainer-info {
+  flex: 1;
+}
+
+.trainer-name {
+  margin: 0 0 8px 0;
+    color: #fff;
+}
+
+.trainer-bio {
+  margin: 0 0 12px 0;
+  color: #d1d5db;
+}
+
+.trainer-actions .btn {
+  margin-right: 8px;
+}
+
+.trainer-edit label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.trainer-edit input,
+.trainer-edit textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+}
+
+.trainer-edit textarea { min-height: 80px }
+
+.trainer-edit-actions { margin-top: 8px }
+
+.team-section { margin-top: 18px }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.team-slot {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.team-slot.filled { border-style: solid }
+
+.team-slot img { width: 64px; height: 64px }
+.slot-name { margin-top: 6px; font-weight: 600; color: #fff }
+
+.remove-btn { margin-top: 8px; background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.3); color: #fecaca; padding: 6px 8px; border-radius: 4px }
+
+.empty-placeholder { color: #9ca3af }
+
+.team-controls { margin-top: 12px; display:flex; align-items:center; gap:12px }
+
+.add-panel { margin-top: 12px; background: rgba(255,255,255,0.02); padding:12px; border-radius:6px; border:1px solid rgba(255,255,255,0.04) }
+
+.sample-list { display:flex; gap:8px; flex-wrap:wrap }
+.sample-item { display:flex; flex-direction:column; align-items:center; gap:6px; padding:8px; background: rgba(255,255,255,0.03); border-radius:6px; border:1px solid rgba(255,255,255,0.04) }
+
+.sample-item img { width:48px; height:48px }
+
+.btn { background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:6px; cursor:pointer; color: #fff }
+.btn.primary { background: linear-gradient(90deg,#22c55e,#16a34a); color:#fff; border:none }
+.btn.small { padding:4px 6px }
+
+.team-count { color:#9ca3af }
